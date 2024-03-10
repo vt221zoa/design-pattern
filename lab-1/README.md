@@ -37,16 +37,17 @@
 ### Посилання на код:
 - [classes.js](classes.js)
 - [test.js](test.js)
+- [Схема]()
 ### Приклади рядків коду:
-1. DRY [Додавання тварини до вольєру в класі Enclosure](classes.js#L14-L16) 
+1. DRY [Додавання тварини до вольєру в класі Enclosure](classes.js#L28-L31) 
 2. KISS (Keep It Simple, Stupid) [Метод feedAnimal у класі Employee виконує просту дію - годування тварини](classes.js#L9-L11)
 3. SOLID
    - Single Responsibility Principle
-     - [Animal клас описує характеристики тварини (species, type, diet)](classes.js#L4).
-     - [Employee клас описує співробітника зоопарку (name, role)](classes.js#L8).
-     - [Enclosure клас описує вольєр (name, size, type)](classes.js#L12).
-     - [Food клас описує їжу (name, suitableFor)](classes.js#L16).
-     - [Inventory клас використовується для обліку тварин і співробітників (animals, employees)](classes.js#L20).
+     - [Animal клас описує характеристики тварини (species, type, diet)](classes.js#L1).
+     - [Employee клас описує співробітника зоопарку (name, role)](classes.js#L9).
+     - [Enclosure клас описує вольєр (name, size, type)](classes.js#L20).
+     - [Food клас описує їжу (name, suitableFor)](classes.js#L34).
+     - [Inventory клас використовується для обліку тварин і співробітників (animals, employees)](classes.js#L41).
    - Open/Closed Principle
      - Класи можна розширити новими функціями, не змінюючи вже існуючий код. Наприклад, можна додати нові методи чи властивості до класів без впливу на існуючий функціонал.
    - Liskov Substitution Principle
@@ -55,7 +56,7 @@
      - Кожен клас надає лише ті методи та властивості, які необхідні для його коректної роботи. Наприклад, клас Enclosure надає лише методи для роботи з вольєрами, а не займається іншими аспектами системи.
    - Dependency Inversion Principle
      - Класи взаємодіють через абстракції, а не через конкретні реалізації. Наприклад, клас Inventory використовує об'єкти типу Animal та Employee, а не конкретні класи, які їх реалізують.
-4. YAGNI (You Ain't Gonna Need It) [Клас Employee має тільки один метод feedAnimal, який виконує лише одну операцію - годування тварини](classes.js#L6-L11)
-5. Composition Over Inheritance [Клас Enclosure використовує композицію, оскільки містить масив animals для представлення тварин у вольєрі.](classes.js#L4-L9)
-6. Program to Interfaces not Implementations [Клас Animal визначає основні властивості тварини, такі як species, type і diet, без зайвих деталей реалізації.](classes.js#L1-L3)
-7. Fail Fast [Перевірка на додавання тварини до вольєру в класі Enclosure.](classes.js#L14)
+4. YAGNI (You Ain't Gonna Need It) [Клас Employee має тільки один метод feedAnimal, який виконує лише одну операцію - годування тварини](classes.js#L15-L16)
+5. Composition Over Inheritance [Клас Enclosure використовує композицію, оскільки містить масив animals для представлення тварин у вольєрі.](classes.js#L20-L32)
+6. Program to Interfaces not Implementations [Клас Animal визначає основні властивості тварини, такі як species, type і diet, без зайвих деталей реалізації.](classes.js#L1-L7)
+7. Fail Fast [Перевірка на додавання тварини до вольєру в класі Enclosure.](classes.js#L28)
