@@ -37,7 +37,7 @@
 ### Посилання на код:
 - [classes.js](classes.js)
 - [test.js](test.js)
-- [Схема]()
+- [Схема](Діаграма.png)
 ### Приклади рядків коду:
 1. DRY [Додавання тварини до вольєру в класі Enclosure](classes.js#L28-L31) 
 2. KISS (Keep It Simple, Stupid) [Метод feedAnimal у класі Employee виконує просту дію - годування тварини](classes.js#L9-L11)
