@@ -9,34 +9,37 @@ namespace task2
     class Runway
     {
         public readonly Guid Id = Guid.NewGuid();
-        private Aircraft? _aircraft;
+        private bool _isAvailable = true;
+
+        public event Action<Aircraft>? Landed;
+        public event Action<Aircraft>? TakenOff;
 
         public bool IsAvailable()
         {
-            return _aircraft == null;
+            return _isAvailable;
         }
+
         public void Land(Aircraft aircraft)
         {
             if (IsAvailable())
             {
                 Console.WriteLine($"Aircraft {aircraft.Name} is landing on Runway {Id}");
-                _aircraft = aircraft;
+                _isAvailable = false;
+                Landed?.Invoke(aircraft);
             }
             else
             {
                 Console.WriteLine($"Runway {Id} is busy. Aircraft {aircraft.Name} cannot land.");
             }
         }
-        public void TakeOff(Aircraft aircraft)
+
+        public void TakeOff()
         {
-            if (_aircraft == aircraft)
+            if (!_isAvailable)
             {
-                Console.WriteLine($"Aircraft {aircraft.Name} is taking off from Runway {Id}");
-                _aircraft = null;
-            }
-            else
-            {
-                Console.WriteLine($"Aircraft {aircraft.Name} is not on Runway {Id}. Cannot take off.");
+                Console.WriteLine($"Aircraft is taking off from Runway {Id}");
+                _isAvailable = true;
+                TakenOff?.Invoke(null);
             }
         }
     }

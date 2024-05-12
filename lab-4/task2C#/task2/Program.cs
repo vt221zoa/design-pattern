@@ -16,11 +16,8 @@ namespace task2
             commandCentre.RequestLanding(aircraft1);
             commandCentre.RequestLanding(aircraft2);
 
-            aircraft1.AssignRunway(runway1);
-            aircraft2.AssignRunway(runway2);
-
-            commandCentre.RequestTakeoff(aircraft1);
-            commandCentre.RequestTakeoff(aircraft2);
+            commandCentre.RequestTakeoff(runway1);
+            commandCentre.RequestTakeoff(runway2);
         }
     }
 }

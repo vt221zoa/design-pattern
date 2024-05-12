@@ -10,11 +10,29 @@ namespace task2
     {
         private List<Runway> _runways = new List<Runway>();
         private List<Aircraft> _aircrafts = new List<Aircraft>();
+
         public CommandCentre(Runway[] runways, Aircraft[] aircrafts)
         {
             _runways.AddRange(runways);
             _aircrafts.AddRange(aircrafts);
+
+            foreach (var runway in _runways)
+            {
+                runway.Landed += OnAircraftLanded;
+                runway.TakenOff += OnAircraftTakenOff;
+            }
         }
+
+        private void OnAircraftLanded(Aircraft aircraft)
+        {
+            Console.WriteLine($"Aircraft {aircraft.Name} has landed.");
+        }
+
+        private void OnAircraftTakenOff(Aircraft aircraft)
+        {
+            Console.WriteLine($"Aircraft has taken off.");
+        }
+
         public bool RequestLanding(Aircraft aircraft)
         {
             foreach (var runway in _runways)
@@ -28,17 +46,10 @@ namespace task2
             Console.WriteLine($"No available runway for {aircraft.Name}");
             return false;
         }
-        public void RequestTakeoff(Aircraft aircraft)
+
+        public void RequestTakeoff(Runway runway)
         {
-            var runway = aircraft.CurrentRunway;
-            if (runway != null)
-            {
-                runway.TakeOff(aircraft);
-            }
-            else
-            {
-                Console.WriteLine($"Aircraft {aircraft.Name} is not on any runway.");
-            }
+            runway.TakeOff();
         }
     }
 }

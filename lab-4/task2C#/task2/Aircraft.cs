@@ -9,14 +9,9 @@ namespace task2
     class Aircraft
     {
         public string Name { get; }
-        public Runway? CurrentRunway { get; private set; }
         public Aircraft(string name)
         {
             Name = name;
-        }
-        public void AssignRunway(Runway runway)
-        {
-            CurrentRunway = runway;
         }
     }
 }
