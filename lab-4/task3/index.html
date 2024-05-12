@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div id="output"></div>
+<script>
+    class LightNode {
+        constructor() {}
+    }
+
+    class LightObserver {
+        constructor() {
+            this.observers = new Map();
+        }
+
+        subscribe(element, event, callback) {
+            if (!this.observers.has(event)) {
+                this.observers.set(event, []);
+            }
+            this.observers.get(event).push({ element, callback });
+            element.addEventListener(event, callback);
+        }
+
+        unsubscribe(event) {
+            if (this.observers.has(event)) {
+                const observers = this.observers.get(event);
+                observers.forEach(({ element, callback }) => {
+                    element.removeEventListener(event, callback);
+                });
+                this.observers.delete(event);
+            }
+        }
+    }
+
+    class LightElementNode extends LightNode {
+        constructor(tagName, displayType, closingType, cssClasses) {
+            super();
+            this.tagName = tagName;
+            this.displayType = displayType;
+            this.closingType = closingType;
+            this.cssClasses = cssClasses || [];
+            this.children = [];
+        }
+
+        addChild(child) {
+            this.children.push(child);
+        }
+
+        getOuterHtml() {
+            let html = `<${this.tagName} class="${this.cssClasses.join(' ')}">`;
+            this.children.forEach(child => {
+                if (child instanceof LightTextNode) {
+                    html += child.text;
+                } else {
+                    html += child.getOuterHtml();
+                }
+            });
+            if (this.closingType === "double") {
+                html += `</${this.tagName}>`;
+            }
+            return html;
+        }
+    }
+
+    class LightTextNode extends LightNode {
+        constructor(text) {
+            super();
+            this.text = text;
+        }
+    }
+
+    const observer = new LightObserver();
+
+    let div = new LightElementNode("div", "block", "closing", ["container"]);
+    let ul = new LightElementNode("ul", "block", "closing", ["list"]);
+    let li1 = new LightElementNode("li", "inline", "self-closing", ["item"]);
+    let text1 = new LightTextNode("text1");
+    let li2 = new LightElementNode("li", "inline", "self-closing", ["item"]);
+    let text2 = new LightTextNode("text2");
+
+    div.addChild(ul);
+    ul.addChild(li1);
+    li1.addChild(text1);
+    ul.addChild(li2);
+    li2.addChild(text2);
+
+    document.getElementById("output").innerHTML = div.getOuterHtml();
+
+    observer.subscribe(document.querySelector('.container'), "click", () => {
+        console.log("Clicked on div");
+    });
+
+    observer.subscribe(document.querySelector('.item:nth-child(1)'), "mouseover", () => {
+        console.log("Mouse over text1");
+    });
+
+    observer.subscribe(document.querySelector('.item:nth-child(2)'), "click", () => {
+        console.log("Clicked on text2");
+    });
+
+</script>
+</body>
+</html>

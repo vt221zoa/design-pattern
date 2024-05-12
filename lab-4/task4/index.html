@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="output"></div>
+<script>
+  class ImageLoadingStrategy {
+    loadImage(href) {}
+  }
+  class NetworkImageStrategy extends ImageLoadingStrategy {
+    loadImage(href) {
+      console.log(`Loading image from NET: ${href}`);
+      const img = document.createElement('img');
+      img.src = href;
+      document.getElementById('output').appendChild(img);
+    }
+  }
+  class FileSystemImageStrategy extends ImageLoadingStrategy {
+    loadImage(href) {
+      console.log(`Loading image from PC: ${href}`);
+      const img = document.createElement('img');
+      img.src = href;
+      document.getElementById('output').appendChild(img);
+    }
+  }
+
+  class Image {
+    constructor(strategy) {
+      this.strategy = strategy;
+    }
+    loadImage(href) {
+      this.strategy.loadImage(href);
+    }
+  }
+
+  const fileSystemStrategy = new FileSystemImageStrategy();
+  const networkStrategy = new NetworkImageStrategy();
+
+  const image1 = new Image(fileSystemStrategy);
+  const image2 = new Image(networkStrategy);
+
+  image1.loadImage("./image.jpeg");
+  image2.loadImage("https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg");
+</script>
+</body>
+</html>
