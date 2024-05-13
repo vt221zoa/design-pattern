@@ -1,5 +1,4 @@
 const LightNode = require('./LightNode');
-
 class LightElementNode extends LightNode {
     constructor(tagName, displayType, closingType, cssClasses, children) {
         super();
