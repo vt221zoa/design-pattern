@@ -1,4 +1,5 @@
 const LightNode = require('./LightNode');
+const Styles = require('./Styles');
 
 class LightElementNode extends LightNode {
     constructor(tagName, displayType, closingType, cssClasses, children) {
@@ -10,9 +11,14 @@ class LightElementNode extends LightNode {
         this.children = children || [];
     }
 
+    applyStyles(styles) {
+        this.styles = new Styles(styles);
+    }
+
     get outerHTML() {
         const attributes = this.cssClasses.length > 0 ? ` class="${this.cssClasses.join(' ')}"` : '';
-        const openingTag = `<${this.tagName}${attributes}>`;
+        const styleAttribute = this.styles ? ` style="${this.styles.getStyleString()}"` : ''; 
+        const openingTag = `<${this.tagName}${attributes}${styleAttribute}>`;
         const closingTag = this.closingType === 'single' ? '/' : '';
         const innerHTML = this.children.map(child => child.outerHTML || child.text || '').join('');
         return `${openingTag}${innerHTML}${closingTag}${this.tagName !== 'br' ? '</' + this.tagName + '>' : ''}`;
