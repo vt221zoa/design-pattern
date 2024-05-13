@@ -1,5 +1,11 @@
 const LightElementNode = require('./LightElementNode');
 const LightTextNode = require('./LightTextNode');
+const Styles = require('./Styles');
+
+const styles = new Styles();
+styles.addStyle('color', 'blue');
+styles.addStyle('font-size', '16px');
+styles.addStyle('font-weight', 'bold');
 
 const lightHtml = new LightElementNode('div', 'block', 'double', ['container'], [
     new LightElementNode('h1', 'block', 'double', ['title'], [
@@ -21,5 +27,6 @@ const lightHtml = new LightElementNode('div', 'block', 'double', ['container'], 
     ])
 ]);
 
-// Виведення в консоль
+lightHtml.applyStyles(styles.getStyles());
+
 console.log(lightHtml.outerHTML);
