@@ -1,5 +1,6 @@
 const LightElementNode = require('./LightElementNode');
 const LightTextNode = require('./LightTextNode');
+const CommandAttribute = require('./CommandAttribute');
 
 const lightHtml = new LightElementNode('div', 'block', 'double', ['container'], [
     new LightElementNode('h1', 'block', 'double', ['title'], [
@@ -19,7 +20,8 @@ const lightHtml = new LightElementNode('div', 'block', 'double', ['container'], 
             new LightTextNode('Item 3')
         ])
     ])
+], [
+    new CommandAttribute('data-custom', 'value') // Приклад атрибуту команди
 ]);
 
-// Виведення в консоль
 console.log(lightHtml.outerHTML);
