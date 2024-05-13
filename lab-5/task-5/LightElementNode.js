@@ -21,6 +21,10 @@ class LightElementNode extends LightNode {
     get innerHTML() {
         return this.children.map(child => child.outerHTML || child.text || '').join('');
     }
+    accept(visitor) {
+        visitor.visitElementNode(this);
+        this.children.forEach(child => child.accept(visitor));
+    }
 }
 
 module.exports = LightElementNode;

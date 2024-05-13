@@ -1,5 +1,6 @@
 const LightElementNode = require('./LightElementNode');
 const LightTextNode = require('./LightTextNode');
+const Visitor = require('./Visitor');
 
 const lightHtml = new LightElementNode('div', 'block', 'double', ['container'], [
     new LightElementNode('h1', 'block', 'double', ['title'], [
@@ -20,6 +21,9 @@ const lightHtml = new LightElementNode('div', 'block', 'double', ['container'], 
         ])
     ])
 ]);
+console.log(lightHtml.outerHTML);
 
-// Виведення в консоль
+const visitor = new Visitor();
+lightHtml.accept(visitor);
+
 console.log(lightHtml.outerHTML);

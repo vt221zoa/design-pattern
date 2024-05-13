@@ -5,6 +5,9 @@ class LightTextNode extends LightNode {
         super();
         this.text = text;
     }
+    accept(visitor) {
+        visitor.visitTextNode(this);
+    }
 }
 
 module.exports = LightTextNode;
