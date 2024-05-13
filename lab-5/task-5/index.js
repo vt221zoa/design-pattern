@@ -1,3 +1,4 @@
+const HTMLIterator = require('./HTMLIterator');
 const LightElementNode = require('./LightElementNode');
 const LightTextNode = require('./LightTextNode');
 
@@ -21,5 +22,10 @@ const lightHtml = new LightElementNode('div', 'block', 'double', ['container'], 
     ])
 ]);
 
-// Виведення в консоль
-console.log(lightHtml.outerHTML);
+
+const iterator = new HTMLIterator(lightHtml);
+let nextNode = iterator.next();
+while (!nextNode.done) {
+    console.log(nextNode.value.outerHTML || nextNode.value.text);
+    nextNode = iterator.next();
+}
