@@ -21,5 +21,4 @@ const lightHtml = new LightElementNode('div', 'block', 'double', ['container'], 
     ])
 ]);
 
-// Виведення в консоль
 console.log(lightHtml.outerHTML);
